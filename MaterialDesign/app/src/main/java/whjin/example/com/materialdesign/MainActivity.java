@@ -1,16 +1,22 @@
 package whjin.example.com.materialdesign;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 /**
  * Created by whjin on 17-2-13.
  */
-public class MainActivity extends Activity{
+public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
 
     private Fruit[] fruits = {
@@ -50,11 +56,21 @@ public class MainActivity extends Activity{
     }
     */
 
+    private DrawerLayout mDrawerLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (null != actionBar) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
 
         initFruits();
         RecyclerView fruitRecyclerView = (RecyclerView) findViewById(R.id.fruit_recyclerview);
@@ -69,6 +85,34 @@ public class MainActivity extends Activity{
         for (int i = 0; i < count; i++) {
             fruitList.add(fruits[i]);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.backup:
+                Toast.makeText(MainActivity.this, "click backup", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.delete:
+                Toast.makeText(MainActivity.this, "click delete", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.setting:
+                Toast.makeText(MainActivity.this, "click settings", Toast.LENGTH_SHORT).show();
+                break;
+            case android.R.id.home:
+                Toast.makeText(MainActivity.this, "click home as up", Toast.LENGTH_SHORT).show();
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     @Override
