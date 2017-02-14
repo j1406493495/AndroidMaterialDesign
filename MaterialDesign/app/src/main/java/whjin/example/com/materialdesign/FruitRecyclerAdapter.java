@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -49,10 +48,15 @@ public class FruitRecyclerAdapter extends RecyclerView.Adapter<FruitRecyclerAdap
         viewHolder.fruitView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int position = viewHolder.getAdapterPosition();
+                Fruit fruit = mFruitList.get(position);
                 Intent intent = new Intent(v.getContext(), FruitActivity.class);
+                intent.putExtra(FruitActivity.FRUIT_NAME, fruit.getName());
+                intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, fruit.getImageId());
                 v.getContext().startActivity(intent);
             }
         });
+        /*
         viewHolder.fruitImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +65,7 @@ public class FruitRecyclerAdapter extends RecyclerView.Adapter<FruitRecyclerAdap
                 Toast.makeText(v.getContext(), fruit.getName(), Toast.LENGTH_SHORT).show();
             }
         });
+        */
         return viewHolder;
     }
 
