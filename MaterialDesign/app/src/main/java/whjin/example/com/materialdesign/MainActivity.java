@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity{
     */
 
     private DrawerLayout mDrawerLayout;
-
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private FruitRecyclerAdapter mFruitRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,11 +108,41 @@ public class MainActivity extends AppCompatActivity{
 
         initFruits();
         RecyclerView fruitRecyclerView = (RecyclerView) findViewById(R.id.fruit_recyclerview);
-        FruitRecyclerAdapter fruitRecyclerAdapter = new FruitRecyclerAdapter(fruitList);
+        mFruitRecyclerAdapter = new FruitRecyclerAdapter(fruitList);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
         fruitRecyclerView.setLayoutManager(layoutManager);
-        fruitRecyclerView.setAdapter(fruitRecyclerAdapter);
+        fruitRecyclerView.setAdapter(mFruitRecyclerAdapter);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshFruits();
+            }
+        });
+    }
+
+    private void refreshFruits() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initFruits();
+                        mFruitRecyclerAdapter.notifyDataSetChanged();
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }).start();
     }
 
     public void initFruits() {
