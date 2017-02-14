@@ -33,10 +33,20 @@
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/nva_menu"
+        app:headerLayout="@layout/nav_header"/>
+    <!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:text="This is drawer"
         android:background="#FFF"/>
+        -->
 </android.support.v4.widget.DrawerLayout>
