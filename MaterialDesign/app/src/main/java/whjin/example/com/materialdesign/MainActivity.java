@@ -7,7 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -107,7 +107,8 @@ public class MainActivity extends AppCompatActivity{
         initFruits();
         RecyclerView fruitRecyclerView = (RecyclerView) findViewById(R.id.fruit_recyclerview);
         FruitRecyclerAdapter fruitRecyclerAdapter = new FruitRecyclerAdapter(fruitList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
         fruitRecyclerView.setLayoutManager(layoutManager);
         fruitRecyclerView.setAdapter(fruitRecyclerAdapter);
     }
