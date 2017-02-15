@@ -2,16 +2,19 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/fruit_appbar"
+        android:fitsSystemWindows="true"
         android:layout_height="250dp"
         android:layout_width="match_parent">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolber"
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -20,6 +23,7 @@
 
             <ImageView
                 android:id="@+id/fruit_image_view"
+                android:fitsSystemWindows="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
